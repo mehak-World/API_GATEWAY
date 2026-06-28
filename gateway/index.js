@@ -23,16 +23,26 @@ app.get("/users", async (req, res) => {
 
 
 app.get("/products", async (req, res) => {
-
   try {
-    const response = await axios.get(services.PRODUCT_SERVICE + "/products");
-    res.json(response.data);
-  } catch (err) {
-    res.status(500).json({
-      message: "Product service unavailable"
-    });
-  }
 
+    console.log("PRODUCT URL:", services.PRODUCT_SERVICE);
+
+    const response = await axios.get(
+      services.PRODUCT_SERVICE + "/products"
+    );
+
+    res.json(response.data);
+
+  } catch (err) {
+
+    console.error("FULL ERROR:");
+    console.error(err);
+
+    res.status(500).json({
+      message: err.message
+    });
+
+  }
 });
 
 const PORT = 3000;
