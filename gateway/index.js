@@ -5,6 +5,21 @@ require("dotenv").config();
 
 const app = express();
 
+app.use((req, res, next) => {
+  const start = Date.now();
+
+  res.on("finish", () => {
+    console.log({
+      method: req.method,
+      path: req.path,
+      status: res.statusCode,
+      duration: Date.now() - start
+    });
+  });
+
+  next();
+});
+
 app.get("/users", async (req, res) => {
   try {
     const response = await axios.get(services.USER_SERVICE + "/users");
