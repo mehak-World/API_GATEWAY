@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 
 const PORT = 3001;
+require("dotenv").config()
 
 app.get("/users", (req, res) => {
   res.json({
